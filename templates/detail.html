@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>词条</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href='{{static_url("css/bootstrap.min.css")}}' rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href='{{static_url("js/vendor/metisMenu/metisMenu.min.css")}}' rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href='{{static_url("css/sb-admin-2.css")}}' rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href='{{static_url("js/vendor/font-awesome/css/font-awesome.min.css")}}' rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">项目图谱</a>
+            </div>
+            <!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-envelope fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-messages">
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <strong>John Smith</strong>
+                                    <span class="pull-right text-muted">
+                                        <em>Yesterday</em>
+                                    </span>
+                                </div>
+                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <strong>John Smith</strong>
+                                    <span class="pull-right text-muted">
+                                        <em>Yesterday</em>
+                                    </span>
+                                </div>
+                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <strong>John Smith</strong>
+                                    <span class="pull-right text-muted">
+                                        <em>Yesterday</em>
+                                    </span>
+                                </div>
+                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a class="text-center" href="#">
+                                <strong>Read All Messages</strong>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-messages -->
+                </li>
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-tasks fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-tasks">
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <p>
+                                        <strong>Task 1</strong>
+                                        <span class="pull-right text-muted">40% Complete</span>
+                                    </p>
+                                    <div class="progress progress-striped active">
+                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                            <span class="sr-only">40% Complete (success)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <p>
+                                        <strong>Task 2</strong>
+                                        <span class="pull-right text-muted">20% Complete</span>
+                                    </p>
+                                    <div class="progress progress-striped active">
+                                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
+                                            <span class="sr-only">20% Complete</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <p>
+                                        <strong>Task 3</strong>
+                                        <span class="pull-right text-muted">60% Complete</span>
+                                    </p>
+                                    <div class="progress progress-striped active">
+                                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+                                            <span class="sr-only">60% Complete (warning)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <p>
+                                        <strong>Task 4</strong>
+                                        <span class="pull-right text-muted">80% Complete</span>
+                                    </p>
+                                    <div class="progress progress-striped active">
+                                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+                                            <span class="sr-only">80% Complete (danger)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a class="text-center" href="#">
+                                <strong>See All Tasks</strong>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-tasks -->
+                </li>
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-bell fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-alerts">
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <i class="fa fa-comment fa-fw"></i> New Comment
+                                    <span class="pull-right text-muted small">4 minutes ago</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <i class="fa fa-twitter fa-fw"></i> 3 New Followers
+                                    <span class="pull-right text-muted small">12 minutes ago</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <i class="fa fa-envelope fa-fw"></i> Message Sent
+                                    <span class="pull-right text-muted small">4 minutes ago</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <i class="fa fa-tasks fa-fw"></i> New Task
+                                    <span class="pull-right text-muted small">4 minutes ago</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <i class="fa fa-upload fa-fw"></i> Server Rebooted
+                                    <span class="pull-right text-muted small">4 minutes ago</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a class="text-center" href="#">
+                                <strong>See All Alerts</strong>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-alerts -->
+                </li>
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        </li>
+                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li class="sidebar-search">
+                            <div class="input-group custom-search-form">
+                                <input type="text" class="form-control" placeholder="Search...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                            <!-- /input-group -->
+                        </li>
+                        <li>
+                            <a href="/"><i class="fa fa-dashboard fa-fw"></i> 概览</a>
+                        </li>
+                        <!--上传项目文档-->
+                        <li>
+                            <a href="#"><i class="fa fa-files-o fa-fw"></i> 项目文档<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="upload">上传</a>
+                                </li>
+                                <li>
+                                    <a href="browse">查看</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> 图表<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="flot.html">Flot Charts</a>
+                                </li>
+                                <li>
+                                    <a href="morris.html">Morris.js Charts</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="tables.html"><i class="fa fa-table fa-fw"></i> 表格</a>
+                        </li>
+                        <li>
+                            <a href="forms.html"><i class="fa fa-edit fa-fw"></i> 表单</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-wrench fa-fw"></i> 页面控件<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="panels-wells.html">Panels and Wells</a>
+                                </li>
+                                <li>
+                                    <a href="buttons.html">Buttons</a>
+                                </li>
+                                <li>
+                                    <a href="notifications.html">Notifications</a>
+                                </li>
+                                <li>
+                                    <a href="typography.html">Typography</a>
+                                </li>
+                                <li>
+                                    <a href="icons.html"> Icons</a>
+                                </li>
+                                <li>
+                                    <a href="grid.html">Grid</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-sitemap fa-fw"></i>多级下拉列表<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="#">Second Level Item</a>
+                                </li>
+                                <li>
+                                    <a href="#">Second Level Item</a>
+                                </li>
+                                <li>
+                                    <a href="#">Third Level <span class="fa arrow"></span></a>
+                                    <ul class="nav nav-third-level">
+                                        <li>
+                                            <a href="#">Third Level Item</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Third Level Item</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Third Level Item</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Third Level Item</a>
+                                        </li>
+                                    </ul>
+                                    <!-- /.nav-third-level -->
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-files-o fa-fw"></i> 范例页面<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="blank.html">Blank Page</a>
+                                </li>
+                                <li>
+                                    <a href="login.html">Login Page</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+
+        <!-- Page Content -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">{{values}}</h1>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->
+                <div class="row">
+                    <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            关系图
+                        </div>
+                        <div class="panel-body">
+
+<div id='sel'>
+    </div>
+    <div id="main" style="width: 1000px;height:1000px;">
+    </div>
+<!-- jQuery -->
+    <script src='{{static_url("js/vendor/jquery/jquery.min.js")}}'></script>
+  <script type="text/javascript" src='{{static_url("js/box.js")}}'></script>
+  <script type="text/javascript">
+
+var datalist = {
+  box: boxList,
+  rela: relatList,
+  link: linkList
+}
+
+var where = {
+  link: {},
+  box: {},
+  rela: []
+}
+
+linksel('pid', 1)
+
+function linksel (key, val) {
+  where['link'] = {
+    key: key,
+    val: val
+  }
+  bind()
+}
+
+function relasel (key, val) {
+  if (where['rela'].filter(function (e) { return e['val'] == val; }).length > 0) {
+    where['rela'].forEach(function (item, index) {
+      if (item.val == val) {
+        delete where['rela'][index]
+      }
+    })
+  } else {
+    where['rela'].push({
+      key: key,
+      val: val
+    })
+  }
+  console.log(where.rela.length)
+  bind()
+}
+
+function bind () {
+  $('#main').html('')
+  $('#sel').html('')
+  var linkList = []
+  var relaList = []
+  var relaId = []
+
+  linkList = datalist['link'].filter(function (e) { return e[where.link.key] == where.link.val; })
+  console.log(linkList)
+  linkList.forEach(function (item, index) {
+    var rela = datalist['rela'].filter(function (e) { return e['id'] == item.rid})[0]
+    if (relaId.indexOf(rela.id) == -1) {
+      rela['isShow'] = ''
+      relaList.push(rela)
+      relaId.push(rela.id)
+    }
+  })
+
+  if (where.rela.length > 0) {
+    linkList = datalist['link'].filter(function (e) { return e[where.link.key] == where.link.val; })
+    where.rela.forEach(function (item, index) {
+      relaList.forEach(function (relaitem, index) {
+        if (relaitem['id'] == item.val) {
+          relaitem.isShow = 'hide'
+        }
+      })
+      linkList.forEach(function (linkitem, index) {
+        if (linkitem[item.key] == item.val) {
+          delete linkList[index]
+        }
+      })
+    })
+  }
+
+  relaList.forEach(function (item, index) {
+    var div_rela = `<div class='rela rela${item.id} ${item.isShow}' onclick='relasel("rid", ${item.id})' ><span></span>${item.name}</div>`
+    $('#sel').append(div_rela)
+  })
+
+  var boxList = []
+  var parentBox = datalist['box'].filter(function (e) { return e['id'] == where.link.val})[0]
+
+  parentBox['left'] = ($("#main").width() - 100) / 2
+  parentBox['top'] = ($("#main").height() - 100) / 2
+  parentBox['width'] = 100
+  parentBox['class'] = 'box_z'
+
+  linkList.forEach(function (item, index) {
+    var b = datalist['box'].filter(function (e) { return e['id'] == item.fid})[0]
+    b['width'] = 100
+    b['class'] = 'box_' + item.rid
+    b['rid'] = item.rid
+    boxList.push(b)
+  })
+  boxList = getpos(boxList, parentBox.left, parentBox.top)
+  boxList.splice(0, 0, parentBox)
+  boxbind(boxList)
+
+  boxList.forEach(function (item, index) {
+    if (index > 0) {
+      var x1 = parseInt(parentBox.top) + 100 / 2
+      var y1 = parseInt(parentBox.left) + 100 / 2
+      var x2 = parseInt(item.top) + 100 / 2
+      var y2 = parseInt(item.left) + 100 / 2
+      var link = getlink(x1, y1, x2, y2)
+      var rela = datalist['rela'].filter(function (e) { return e['id'] == item.rid})[0]
+      link['parentType'] = rela['name']
+      var div_link = `<div class='link' style='width: ${link.width}px; top: ${link.x}px; left: ${link.y}px;transform: rotate(${link.angle}deg)'>${link.parentType}</div>`
+      $('#main').append(div_link)
+    }
+  })
+}
+
+
+
+function getpos (data, dotLeft, dotTop) {
+  data.forEach(function (item, index) {
+    var stard = 0
+    var radius = 300
+    var avd = 360 / data.length
+    var ahd = avd * Math.PI / 180
+    item['left'] = Math.sin((ahd * index)) * radius + dotLeft
+    item['top'] = Math.cos((ahd * index)) * radius + dotTop
+  })
+  return data
+}
+
+function boxbind (data) {
+  data.forEach(function(item, index) {
+    var div_box = `<div class='box ${item.class}' onclick='linksel("pid", ${item.id})' style='line-height: ${item.width}px;width: ${item.width}px; height: ${item.width}px; top: ${item.top}px; left: ${item.left}px'>${item.name}</div>`
+    $('#main').append(div_box)
+    if (index > 0) {
+      // let parent = parseInt(item.parent) - 1
+      // let x1 = parseInt(data[parent].top) + parseInt(data[parent].width) / 2
+      // let y1 = parseInt(data[parent].left) + parseInt(data[parent].width) / 2
+      // let x2 = parseInt(item.top) + parseInt(item.width) / 2
+      // let y2 = parseInt(item.left) + parseInt(item.width) / 2
+      // let link = getlink(x1, y1, x2, y2, 20)
+
+      // let div_link = `<div class='link' style='width: ${link.width}px; top: ${link.x}px; left: ${link.y}px;transform: rotate(${link.angle}deg)'>${item.parentType}</div>`
+      // $('#main').append(div_link)
+    }
+  })
+}
+
+ //生成线
+function getlink (x1, y1, x2, y2) {
+  var x = Math.abs(x1 - x2)
+  var y = Math.abs(y1 - y2)
+  var z = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2))
+  var cos = y / z
+  var radina = Math.acos(cos)
+  var angle = 180 / (Math.PI / radina)
+
+  if (x1 > x2 && y1 < y2) {
+    angle = (-angle)
+  }
+  if (x1 < x2 && y1 > y2) {
+    angle = (-angle)
+  }
+
+  var link = {
+    angle: angle,
+    width: z,
+    x: (x1 + x2) / 2,
+    y: (y1 + y2) / 2
+  }
+  if (link.y < 0) {
+    link.y = Math.abs(link.y)
+  }
+  link.y = link.y - (z / 2)
+  link.x = link.x - (18 || 0)
+  if (link.angle == 90) {
+    link.y = link.y + 10
+  }
+  return link
+}
+
+  </script>
+
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                    </div>
+
+
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            介绍
+                        </div>
+                        <div class="panel-body">
+                            上海市电化教育馆成立于1985年7月9日，是上海市教委直属事业单位，现委托上海开放大学管理，业务主要对口上海市教委。2005年，增挂上海市教育委员会基础教育资源中心的牌子（沪编[2005]156号），电教馆与资源中心合署办公，2012年，根据上海市教委有关文件（沪教委基[2012 ]46号），市级基础教育学生信息管理服务中心设在上海市电教馆。根据有关文件精神，上海市电教馆事业职能着眼于现代信息技术与教育教学的深度融合，促进教育理念、教学模式和管理方法的深刻变革，以信息化带动上海教育的现代化。在上海市教委的领导下，开展基础教育信息化的建设规划、标准制定、资源开发、人员培养和平台管理，实施上海基础教育数据中心的日常管理工作。
+
+上海市电化教育馆主要履行下列工作职责：
+
+（一）上海基础教育数据中心建设、管理与服务。
+
+承担基础教育学生信息数据库、基础教育数据管理和公共服务平台的规划、建设与运维；以电子学生证管理和应用拓展为基础，做好基础教育学生成长大数据的采集和挖掘分析，综合素质评价系统开发与运维，为教育行政决策提供数据支持，配合基础教育处做好区县学籍管理员队伍和技术支持队伍的管理工作。
+
+（二）上海基础教育资源中心的规划、建设、维护和运用推广。
+
+承担本市基础教育数字化资源建设、规划和协调工作；负责上海市基础教育电子音像产品的审核和报批发布工作；承担本市基础教育资源库及资源服务网站的管理工作；组织基础教育数字化资源的研究、评价、统筹、应用推广和对外交流工作；负责基础教育处专题教育课程资源的开发、网络平台建设和运维管理工作。
+
+（三）学校及师生信息化能力提升。
+
+负责上海市全国中小学现代教育技术实验学校的指导、培训、评估、总结和推广工作；承担中央电教馆下达的关于全国中小学现代教育技术实验学校的有关工作；承担基础教育教师信息化应用能力培训教材的研制、学校师生的信息化能力的培养和提升工作；承担区县、学校从事教育信息技术工作的专、兼职人员的团队建设、业务培训和专业引领。
+
+（四）教育信息化服务体系的建设和维护。
+
+协助市教委有关职能部门指导、协调、服务本市区县电教站和信息中心开展现代教育信息技术工作及基础教育技术工作网络建设；与区县沟通协调，提供电教及信息技术支持服务，构建服务体系；承担上海市教育技术协会秘书处的工作。
+
+（五）教与学的信息化应用推进与研究。
+
+在市教委有关职能部门的指导下，组织区县电教站和信息中心研究人员开展教育技术和教育信息化科学研究、应用推广、效能评估活动。包括基础教育领域电教、信息化重要发展方向的跟踪研究，重要教育信息化项目规划设计及建设支持和推动，教与学信息化应用研究和推进；负责与区县相关的重要应用项目推进；负责编辑出版《教育传播与技术》杂志。
+
+（六）承担中央电教馆、市教委和开放大学下达的其他任务。
+
+（七）做好国内外电化教育交流工作。
+
+
+
+近年来，我馆按照市教委要求进行信息化建设与运行管理，在上海市基础教育学籍系统、招生报名系统、综合素质评价系统等多个重大项目中圆满完成预定任务，特别是义务教育招生报名系统的建设与运维，克服时间短、任务重的困难，出色完成任务，得到上海市教委和上海市委市政府主要领导的高度评价。在信息化教学领域、在上海乃至全国都有较大的影响力。
+                        </div>
+                    </div>
+                    </div>
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src='{{static_url("js/vendor/bootstrap/js/bootstrap.min.js")}}'></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src='{{static_url("js/vendor/metisMenu/metisMenu.min.js")}}'></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src='{{static_url("js/sb-admin-2.js")}}'></script>
+
+</body>
+
+</html>
