@@ -16,12 +16,14 @@ class DetailHandler(BaseHandler):
         for object in python_obj["objects"]:
             if object["objectname"] == data:
                 values["objectname"] = data
+                values["objectlv"] = object["objectlv"]
                 if object["objecttype"] == "PJ":
                     values["objectdescription"] = "项目名称：" + object["objectfields"][0]["projectname"]  + "</br>项目背景：" + object["objectfields"][0]["background"] + "</br>项目目标：" + object["objectfields"][0]["target"]
                 else:
                     values["objectdescription"] = object["objectdescription"]
                 break
             else:
+                values["objectlv"] = 0
                 values["objectname"] = "尚未创建该词条"
                 values["objectdescription"] = "我来创建"
         else:

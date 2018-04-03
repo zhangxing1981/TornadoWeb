@@ -30,6 +30,15 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+       <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/simplex.js"></script>
 </head>
 
 <body>
@@ -281,10 +290,10 @@
                             <a href="#"><i class="fa fa-files-o fa-fw"></i> 项目文档<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="upload">上传</a>
+                                    <a href="../upload">上传</a>
                                 </li>
                                 <li>
-                                    <a href="browse">查看</a>
+                                    <a href="../browse">查看</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -398,191 +407,99 @@
                         </div>
                         <div class="panel-body">
 
-<div id='sel'>
-    </div>
-    <div id="main" style="width: 1000px;height:1000px;">
-    </div>
+                            <div id="container" style="height: 800px;"></div>
 <!-- jQuery -->
     <script src='{{static_url("js/vendor/jquery/jquery.min.js")}}'></script>
-  <script type="text/javascript" src='{{static_url("js/box.js")}}'></script>
+
   <script type="text/javascript">
+var dom = document.getElementById("container");
+var myChart = echarts.init(dom);
+var app = {};
+option = null;
+app.title = '力引导布局';
 
-var datalist = {
-  box: boxList,
-  rela: relatList,
-  link: linkList
-}
+myChart.showLoading();
+$.get('/static/data/{{values["objectname"]}}.xml', function (xml) {
+    myChart.hideLoading();
 
-var where = {
-  link: {},
-  box: {},
-  rela: []
-}
-
-linksel('pid', 1)
-
-function linksel (key, val) {
-  where['link'] = {
-    key: key,
-    val: val
-  }
-  bind()
-}
-
-function relasel (key, val) {
-  if (where['rela'].filter(function (e) { return e['val'] == val; }).length > 0) {
-    where['rela'].forEach(function (item, index) {
-      if (item.val == val) {
-        delete where['rela'][index]
-      }
-    })
-  } else {
-    where['rela'].push({
-      key: key,
-      val: val
-    })
-  }
-  console.log(where.rela.length)
-  bind()
-}
-
-function bind () {
-  $('#main').html('')
-  $('#sel').html('')
-  var linkList = []
-  var relaList = []
-  var relaId = []
-
-  linkList = datalist['link'].filter(function (e) { return e[where.link.key] == where.link.val; })
-  console.log(linkList)
-  linkList.forEach(function (item, index) {
-    var rela = datalist['rela'].filter(function (e) { return e['id'] == item.rid})[0]
-    if (relaId.indexOf(rela.id) == -1) {
-      rela['isShow'] = ''
-      relaList.push(rela)
-      relaId.push(rela.id)
+    var graph = echarts.dataTool.gexf.parse(xml);
+    var categories = [];
+    for (var i = 0; i < parseInt('{{values["objectlv"]}}'); i++) {
+        categories[i] = {
+            name: '类别' + i
+        };
     }
-  })
+    graph.nodes.forEach(function (node) {
+        node.itemStyle = null;
 
-  if (where.rela.length > 0) {
-    linkList = datalist['link'].filter(function (e) { return e[where.link.key] == where.link.val; })
-    where.rela.forEach(function (item, index) {
-      relaList.forEach(function (relaitem, index) {
-        if (relaitem['id'] == item.val) {
-          relaitem.isShow = 'hide'
-        }
-      })
-      linkList.forEach(function (linkitem, index) {
-        if (linkitem[item.key] == item.val) {
-          delete linkList[index]
-        }
-      })
-    })
-  }
+        node.category = node.attributes.modularity_class;
+        // Use random x, y
+        node.x = node.y = null;
+        node.draggable = true;
 
-  relaList.forEach(function (item, index) {
-    var div_rela = `<div class='rela rela${item.id} ${item.isShow}' onclick='relasel("rid", ${item.id})' ><span></span>${item.name}</div>`
-    $('#sel').append(div_rela)
-  })
+    });
+    option = {
+        title: {
+            text: '关系图',
+            subtext: 'Default layout',
+            top: 'bottom',
+            left: 'right'
+        },
+        tooltip: {},
+        legend: [{
+            // selectedMode: 'single',
+            data: categories.map(function (a) {
+                return a.name;
+            })
+        }],
+        animation: true,
+        series : [
+            {
+                name: '关系图',
+                type: 'graph',
+                layout: 'force',
+                data: graph.nodes,
+                links: graph.links,
+                categories: categories,
+                roam: true,
+                label: {
 
-  var boxList = []
-  var parentBox = datalist['box'].filter(function (e) { return e['id'] == where.link.val})[0]
+                    normal: {
+                        position: 'right'
+                    }
+                },
+                force: {
+                    repulsion: 300,
+                    edgeLength: 150
+                },
+                itemStyle:{
+                    normal:{
+                        label:{
+                            show: true,//如果设置为true，节点文字则一直显示
+                            formatter: '{b}'
+                        },
 
-  parentBox['left'] = ($("#main").width() - 100) / 2
-  parentBox['top'] = ($("#main").height() - 100) / 2
-  parentBox['width'] = 100
-  parentBox['class'] = 'box_z'
+                        labelLine :{show:true}
+                    }
+                }
+            }
+        ]
+    };
 
-  linkList.forEach(function (item, index) {
-    var b = datalist['box'].filter(function (e) { return e['id'] == item.fid})[0]
-    b['width'] = 100
-    b['class'] = 'box_' + item.rid
-    b['rid'] = item.rid
-    boxList.push(b)
-  })
-  boxList = getpos(boxList, parentBox.left, parentBox.top)
-  boxList.splice(0, 0, parentBox)
-  boxbind(boxList)
-
-  boxList.forEach(function (item, index) {
-    if (index > 0) {
-      var x1 = parseInt(parentBox.top) + 100 / 2
-      var y1 = parseInt(parentBox.left) + 100 / 2
-      var x2 = parseInt(item.top) + 100 / 2
-      var y2 = parseInt(item.left) + 100 / 2
-      var link = getlink(x1, y1, x2, y2)
-      var rela = datalist['rela'].filter(function (e) { return e['id'] == item.rid})[0]
-      link['parentType'] = rela['name']
-      var div_link = `<div class='link' style='width: ${link.width}px; top: ${link.x}px; left: ${link.y}px;transform: rotate(${link.angle}deg)'>${link.parentType}</div>`
-      $('#main').append(div_link)
+    myChart.setOption(option);
+    }, 'xml');;
+    if (option && typeof option === "object") {
+        myChart.setOption(option, true);
     }
-  })
-}
 
+    myChart.on('click', function(params){
 
-
-function getpos (data, dotLeft, dotTop) {
-  data.forEach(function (item, index) {
-    var stard = 0
-    var radius = 300
-    var avd = 360 / data.length
-    var ahd = avd * Math.PI / 180
-    item['left'] = Math.sin((ahd * index)) * radius + dotLeft
-    item['top'] = Math.cos((ahd * index)) * radius + dotTop
-  })
-  return data
-}
-
-function boxbind (data) {
-  data.forEach(function(item, index) {
-    var div_box = `<div class='box ${item.class}' onclick='linksel("pid", ${item.id})' style='line-height: ${item.width}px;width: ${item.width}px; height: ${item.width}px; top: ${item.top}px; left: ${item.left}px'>${item.name}</div>`
-    $('#main').append(div_box)
-    if (index > 0) {
-      // let parent = parseInt(item.parent) - 1
-      // let x1 = parseInt(data[parent].top) + parseInt(data[parent].width) / 2
-      // let y1 = parseInt(data[parent].left) + parseInt(data[parent].width) / 2
-      // let x2 = parseInt(item.top) + parseInt(item.width) / 2
-      // let y2 = parseInt(item.left) + parseInt(item.width) / 2
-      // let link = getlink(x1, y1, x2, y2, 20)
-
-      // let div_link = `<div class='link' style='width: ${link.width}px; top: ${link.x}px; left: ${link.y}px;transform: rotate(${link.angle}deg)'>${item.parentType}</div>`
-      // $('#main').append(div_link)
+    if(!$.isNumeric(params.name))
+    {
+        //alert(params.name);
+        window.location.href = params.name;
     }
-  })
-}
-
- //生成线
-function getlink (x1, y1, x2, y2) {
-  var x = Math.abs(x1 - x2)
-  var y = Math.abs(y1 - y2)
-  var z = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2))
-  var cos = y / z
-  var radina = Math.acos(cos)
-  var angle = 180 / (Math.PI / radina)
-
-  if (x1 > x2 && y1 < y2) {
-    angle = (-angle)
-  }
-  if (x1 < x2 && y1 > y2) {
-    angle = (-angle)
-  }
-
-  var link = {
-    angle: angle,
-    width: z,
-    x: (x1 + x2) / 2,
-    y: (y1 + y2) / 2
-  }
-  if (link.y < 0) {
-    link.y = Math.abs(link.y)
-  }
-  link.y = link.y - (z / 2)
-  link.x = link.x - (18 || 0)
-  if (link.angle == 90) {
-    link.y = link.y + 10
-  }
-  return link
-}
+});
 
   </script>
 
@@ -625,6 +542,7 @@ function getlink (x1, y1, x2, y2) {
     <!-- Custom Theme JavaScript -->
     <script src='{{static_url("js/sb-admin-2.js")}}'></script>
 
+    </div>
 </body>
 
 </html>
