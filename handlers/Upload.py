@@ -41,11 +41,50 @@ class UploadHandler(BaseHandler):
         filecontent = docx2txt.process("uploads/" + final_filename)
         values["filecontent"] = filecontent
 
+        pos = {}
+        pos["n"] = 0
+        pos["nr"] = 0
+        pos["nz"] = 0
+        pos["a"] = 0
+        pos["m"] = 0
+        pos["c"] = 0
+        pos["f"] = 0
+        pos["ns"] = 0
+        pos["v"] = 0
+        pos["ad"] = 0
+        pos["q"] = 0
+        pos["u"] = 0
+        pos["s"] = 0
+        pos["nt"] = 0
+        pos["vd"] = 0
+        pos["an"] = 0
+        pos["r"] = 0
+        pos["xc"] = 0
+        pos["t"] = 0
+        pos["nw"] = 0
+        pos["vn"] = 0
+        pos["d"] = 0
+        pos["p"] = 0
+        pos["w"] = 0
         wordsvalue = UploadHandler.client.lexer(filecontent.encode('GBK','ignore').decode('GBK'))
         wordsdata = json.loads(json.dumps(wordsvalue,encoding="utf-8",ensure_ascii=False))
         words= ''
+        wordcount = {}
         for item in wordsdata["items"]:
-            words += item["item"] + ', '
+            if(item["pos"] != ''):
+                pos[item["pos"]] += 1
+                if(item["pos"] == 'n' or  item["pos"] == 'm' or  item["pos"] == 'v' or  item["pos"] == 'nt' or  item["pos"] == 'vn'):
+                    if(item["item"] in wordcount):
+                        wordcount[item["item"]] +=1
+                    else:
+                        wordcount[item["item"]] =1
+
+        for index,item in list(enumerate(pos)):
+            words += item + ":" + str(pos[item]) + "</br>"
+
+        for index,item in list(enumerate(wordcount)):
+            if(wordcount[item] >1):
+                words += item + ":" + str(wordcount[item]) + "</br>"
 
         keyvalue = UploadHandler.client.keyword("title",filecontent.encode('GBK', 'ignore').decode('GBK'))
         keydata = json.loads(json.dumps(keyvalue, encoding="utf-8", ensure_ascii=False))
