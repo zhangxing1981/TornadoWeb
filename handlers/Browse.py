@@ -7,7 +7,7 @@ class BrowseHandler(BaseHandler):
 
     def get(self):
         db = torndb.Connection("127.0.0.1:3306", "Project_Atlas", user="root", password="1qaz@WSX")
-        sql = 'SELECT * FROM Tbl_Project order by CreateTime desc limit 500'
+        sql = 'SELECT * FROM Tbl_Project order by CreateTime desc limit 3000'
         datalist = db.query(sql)
         tabledata = ""
         for datarow in datalist:
