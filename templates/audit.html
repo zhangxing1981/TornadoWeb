@@ -9,9 +9,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>项目文档查看</title>
+    <title>项目图谱</title>
 
-    <!-- Bootstrap Core CSS -->
+     <!-- Bootstrap Core CSS -->
     <link href='{{static_url("css/bootstrap.min.css")}}' rel="stylesheet">
 
     <!-- MetisMenu CSS -->
@@ -36,9 +36,20 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+
+        <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+       <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/simplex.js"></script>
 </head>
 
 <body>
+
 
     <div id="wrapper">
 
@@ -272,14 +283,14 @@
                             <div class="input-group custom-search-form">
                                 <input type="text" class="form-control" placeholder="Search...">
                                 <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </span>
+                                    <button class="btn btn-default" type="button">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
                             </div>
                             <!-- /input-group -->
                         </li>
-                        <li>
+                       <li>
                             <a href="/"><i class="fa fa-dashboard fa-fw"></i> 概览</a>
                         </li>
                         <!--上传项目文档-->
@@ -291,6 +302,9 @@
                                 </li>
                                 <li>
                                     <a href="../browse">查看</a>
+                                </li>
+                                <li>
+                                    <a href="../audit">审核</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -386,52 +400,247 @@
             <!-- /.navbar-static-side -->
         </nav>
 
+        <!-- Page Content -->
         <div id="page-wrapper">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="page-header">项目列表</h1>
-                </div>
-                <!-- /.col-lg-12 -->
-            </div>
-            <!-- /.row -->
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
-                                <thead>
-                                    <tr>
-                                        <th>项目名称</th>
-                                        <th>创建日期</th>
-                                        <th>实施周期</th>
-                                        <th>项目要求</th>
-                                        <th>金额</th>
-                                        <th>操作</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-                                    {% raw tabledata %}
-                                </tbody>
-                            </table>
-                            <!-- /.table-responsive -->
-                            <!--div class="well">
-                                <h4>DataTables Usage Information</h4>
-                                <p>DataTables is a very flexible, advanced tables plugin for jQuery. In SB Admin, we are using a specialized version of DataTables built for Bootstrap 3. We have also customized the table headings to use Font Awesome icons in place of images. For complete documentation on DataTables, visit their website at <a target="_blank" href="https://datatables.net/">https://datatables.net/</a>.</p>
-                                <a class="btn btn-default btn-lg btn-block" target="_blank" href="https://datatables.net/">View DataTables Documentation</a>
-                            </div-->
-                        </div>
-                        <!-- /.panel-body -->
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">"{{values["ProjectTitle"]}}"项目审核</h1>
                     </div>
-                    <!-- /.panel -->
+                    <!-- /.col-lg-12 -->
                 </div>
-                <!-- /.col-lg-12 -->
-            </div>
+                <!-- /.row -->
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                同类型项目建设趋势
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <div id="barcontainer" style="height: 300px;"></div>
+                                <script type="text/javascript">
+                                    var dom = document.getElementById("barcontainer");
+                                    var myChart = echarts.init(dom);
+                                    var app = {};
+                                    option = null;
+                                    app.title = '坐标轴刻度与标签对齐';
 
+                                    option = {
+                                        color: ['#3398DB'],
+                                        tooltip : {
+                                            trigger: 'axis',
+                                            axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                                                type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                                            }
+                                        },
+                                        grid: {
+                                            left: '3%',
+                                            right: '4%',
+                                            bottom: '3%',
+                                            containLabel: true
+                                        },
+                                        xAxis : [
+                                            {
+                                                type : 'category',
+                                                data : ['2011', '2012', '2013', '2014', '2015', '2016', '2017'],
+                                                axisTick: {
+                                                    alignWithLabel: true
+                                                }
+                                            }
+                                        ],
+                                        yAxis : [
+                                            {
+                                                type : 'value'
+                                            }
+                                        ],
+                                        series : [
+                                            {
+                                                name:'建设数量',
+                                                type:'bar',
+                                                barWidth: '60%',
+                                                data:[10, 52, 200, 334, 390, 330, 220]
+                                            }
+                                        ]
+                                    };
+                                    ;
+                                    if (option && typeof option === "object") {
+                                        myChart.setOption(option, true);
+                                    }
+                                           </script>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--pie -->
+                    <div class="col-lg-4">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                2017年项目投资占比
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <div id="piecontainer" style="height: 300px;"></div>
+                                <script type="text/javascript">
+                                    var dom = document.getElementById("piecontainer");
+                                    var myChart = echarts.init(dom);
+                                    var app = {};
+                                    option = null;
+                                    option = {
+                                        title : {
+                                            text: '各类型项目投资比例',
+                                            subtext: '',
+                                            x:'center'
+                                        },
+                                        tooltip : {
+                                            trigger: 'item',
+                                            formatter: "{a} <br/>{b} : {c} ({d}%)"
+                                        },
+                                        legend: {
+                                            orient: 'vertical',
+                                            left: 'left',
+                                            data: ['PC端应用','微信小程序','3D VR','移动端app','嵌入式系统']
+                                        },
+                                        series : [
+                                            {
+                                                name: '投资占比',
+                                                type: 'pie',
+                                                radius : '55%',
+                                                center: ['50%', '60%'],
+                                                data:[
+                                                    {value:335, name:'PC端应用'},
+                                                    {value:310, name:'微信小程序'},
+                                                    {value:234, name:'3D VR'},
+                                                    {value:135, name:'移动端app'},
+                                                    {value:1548, name:'嵌入式系统'}
+                                                ],
+                                                itemStyle: {
+                                                    emphasis: {
+                                                        shadowBlur: 10,
+                                                        shadowOffsetX: 0,
+                                                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                                    }
+                                                }
+                                            }
+                                        ]
+                                    };
+                                    ;
+                                    if (option && typeof option === "object") {
+                                        myChart.setOption(option, true);
+                                    }
+
+
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--radar-->
+                    <div class="col-lg-4">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                当前项目与标准情况对比
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <div id="radarcontainer" style="height: 300px;"></div>
+                                <script type="text/javascript">
+                                    var dom = document.getElementById("radarcontainer");
+                                    var myChart = echarts.init(dom);
+                                    var app = {};
+                                    option = null;
+                                    option = {
+                                        title: {
+                                            text: ''
+                                        },
+                                        tooltip: {},
+                                        legend: {
+                                            left:'left',
+                                            top:'2%',
+                                            data: ['标准参数', '项目参数']
+                                        },
+                                        radar: {
+                                            // shape: 'circle',
+                                            name: {
+                                                textStyle: {
+                                                    color: '#fff',
+                                                    backgroundColor: '#999',
+                                                    borderRadius: 3,
+                                                    padding: [3, 3]
+                                               }
+                                            },
+                                            indicator: [
+                                               { name: '项目报价', max: 6500},
+                                               { name: '工期', max: 16000},
+                                               { name: '政策要求', max: 30000},
+                                               { name: '使用人数', max: 38000},
+                                               { name: '承建单位信用', max: 52000},
+                                               { name: '系统规模', max: 25000}
+                                            ]
+                                        },
+                                        series: [{
+                                            name: '预算 vs 开销（Budget vs spending）',
+                                            type: 'radar',
+                                            // areaStyle: {normal: {}},
+                                            data : [
+                                                {
+                                                    value : [4300, 10000, 28000, 35000, 50000, 19000],
+                                                    name : '标准参数'
+                                                },
+                                                 {
+                                                    value : [5000, 14000, 28000, 31000, 42000, 21000],
+                                                    name : '项目参数'
+                                                }
+                                            ]
+                                        }]
+                                    };;
+                                    if (option && typeof option === "object") {
+                                        myChart.setOption(option, true);
+}
+                                    </script>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                项目简介
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <h4>{{values["ProjectDesc"]}}</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                审核操作
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <h4>审核意见</h4>
+                                <button type="button" class="btn btn-info btn-circle btn-xl"><i class="fa fa-check"></i>
+                                </button>
+                                <button type="button" class="btn btn-warning btn-circle btn-xl"><i class="fa fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- /.container-fluid -->
         </div>
         <!-- /#page-wrapper -->
 
@@ -447,22 +656,8 @@
     <!-- Metis Menu Plugin JavaScript -->
     <script src='{{static_url("js/vendor/metisMenu/metisMenu.min.js")}}'></script>
 
-    <!-- DataTables JavaScript -->
-    <script src='{{static_url("js/vendor/datatables/js/jquery.dataTables.min.js")}}'></script>
-    <script src='{{static_url("js/vendor/datatables-plugins/dataTables.bootstrap.min.js")}}'></script>
-    <script src='{{static_url("js/vendor/datatables-responsive/dataTables.responsive.js")}}'></script>
-
     <!-- Custom Theme JavaScript -->
     <script src='{{static_url("js/sb-admin-2.js")}}'></script>
-
-    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
-    <script>
-    $(document).ready(function() {
-        $('#dataTables-example').DataTable({
-            responsive: true
-        });
-    });
-    </script>
 
 </body>
 
