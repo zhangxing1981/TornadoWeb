@@ -1,17 +1,18 @@
 #_*_encoding:utf-8_*_
+import dbconfig
+
 from handlers.base import BaseHandler
-import torndb
 
 class BrowseHandler(BaseHandler):
 
+    dbconfig.init()
 
     def get(self):
-        db = torndb.Connection("127.0.0.1:3306", "Project_Atlas", user="root", password="1qaz@WSX")
-        sql = 'SELECT * FROM Tbl_Project order by CreateTime desc limit 3000'
-        datalist = db.query(sql)
+        sql = 'SELECT * FROM Tbl_Project order by CreateTime desc limit 1000'
+        datalist = dbconfig.db.query(sql)
         tabledata = ""
         for datarow in datalist:
-            tabledata += '<tr class="odd gradeA"><td title="'+ datarow["ProjectDesc"] +'">'+ datarow["ProjectTitle"] +'</td><td>'+ datarow["CreateTime"] +'</td><td>'+ datarow["DevPeriod"]  +'</td><td>'+ datarow["ProjectRequirement"] +'</td><td>'+ str(datarow["Price"]) +'元</td></tr>'
+            tabledata += '<tr class="odd gradeA"><td title="'+ datarow["ProjectDesc"] +'">'+ datarow["ProjectTitle"] +'</td><td>'+ datarow["CreateTime"] +'</td><td>'+ datarow["DevPeriod"]  +'</td><td>'+ datarow["ProjectRequirement"] +'</td><td>'+ str(datarow["Price"]) +'元</td><td><a href="../audit/'+ datarow["ProjectID"]  +'">审核</td></tr>'
 
-        db.close()
+        dbconfig.db.close()
         self.render("browse.html", tabledata = tabledata)
