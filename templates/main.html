@@ -318,6 +318,7 @@
                     <div class="row">
                         <div class="col-lg-12" style="height: 100%; margin: 0">
                             <div id="mapcontainer" style="height: 750px;"></div>
+                            <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.4&key=6e4fc204aa8511d1b6f0a5c6c2459149"></script>
                             <script type="text/javascript">
                                     var dom = document.getElementById("mapcontainer");
                                     var myChart = echarts.init(dom);
@@ -364,6 +365,24 @@
                                                                 borderWidth: 0
                                                             }
                                                         },
+                                                        data:[
+                                                                {name: '杨浦区', value: '310110'},
+                                                                {name: '虹口区', value: '310109'},
+                                                                {name: '静安区', value: '310106'},
+                                                                {name: '浦东新区', value: '310115'},
+                                                                {name: '宝山区', value: '310113'},
+                                                                {name: '嘉定区', value: '310114'},
+                                                                {name: '普陀区', value: '310107'},
+                                                                {name: '长宁区', value: '310105'},
+                                                                {name: '黄浦区', value: '310101'},
+                                                                {name: '徐汇区', value: '310104'},
+                                                                {name: '闵行区', value: '310112'},
+                                                                {name: '青浦区', value: '310118'},
+                                                                {name: '松江区', value: '310117'},
+                                                                {name: '奉贤区', value: '310120'},
+                                                                {name: '金山区', value: '310116'},
+                                                                {name: '崇明区', value: '310151'}
+                                                            ],
                                                         animation: false
                                                         // animationDurationUpdate: 1000,
                                                         // animationEasingUpdate: 'quinticInOut'
@@ -377,10 +396,75 @@
                                         series: []
                                     };
                                     showProvince();
-                                    ;
+
                                     if (option && typeof option === "object") {
                                         myChart.setOption(option, true);
                                     }
+                                    myChart.on('click', function (params) {
+                                        if (params.componentType === 'series') {
+                                             var name =params.value;
+                                                //alert(params.name)
+                                                showdistrict(name);
+                                            }
+                                    });
+
+
+                                    function showdistrict(districtname)
+                                    {
+                                        $.getJSON("http://restapi.amap.com/v3/config/district?keywords="+ districtname +"&subdistrict=0&key=8ee12093fd816921f187046a0cd8edff", function(data)
+                                        {
+
+                                            var point;
+                                            $.each(data.districts,function(i,item)
+                                            {
+                                                point = item.center;
+                                                //alert(point.split(',')[0]);
+
+                                            });
+                                            var map = new AMap.Map('mapcontainer', {
+                                                        resizeEnable: true,
+                                                        zoom:14,
+                                                        center: [point.split(',')[0],point.split(',')[1]]
+                                                    });
+
+
+
+
+                                            $.getJSON('/static/data/'+ districtname +'.json', function(data)
+                                            {
+                                                $.each(data.orgs,function(i,item)
+                                                {
+
+                                                    //alert(point.split(',')[0]);
+
+                                                    var content = document.createElement('div');
+                                                    content.innerHTML = item.orgname;
+                                                    content.className = 'orgname';
+                                                    marker = new AMap.Marker({
+                                                      position: item.orgposition,
+                                                      title: "",
+                                                      map: map
+                                                    });
+                                                    marker = new AMap.Marker({
+                                                    content: content,
+                                                    position: item.orgposition,
+                                                    title: "",
+                                                    offset: new AMap.Pixel(0,0),
+                                                    map: map
+                                                        });
+                                                    marker.name = content.innerHTML;
+                                                    var _onClick = function(e){
+                                                        //alert(e.target.name);
+                                                        window.location.href = "detail/" + e.target.name;
+                                                    }
+                                                    AMap.event.addListener(marker, 'click', _onClick);
+
+                                                });
+
+                                            });
+                                        });
+                                    }
+
                            </script>
                         </div>
                     </div>
