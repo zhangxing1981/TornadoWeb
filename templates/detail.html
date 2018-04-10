@@ -423,12 +423,16 @@ $.get('/static/data/{{values["objectname"]}}.xml', function (xml) {
     myChart.hideLoading();
 
     var graph = echarts.dataTool.gexf.parse(xml);
+    var relationship = '{{values["objectrelationship"]}}';
     var categories = [];
-    for (var i = 0; i < parseInt('{{values["objectlv"]}}'); i++) {
+
+    for (var i = 0; i < relationship.split(',').length; i++) {
         categories[i] = {
-            name: '类别' + i
+            name: relationship.split(',')[i]
         };
     }
+
+
     graph.nodes.forEach(function (node) {
         node.itemStyle = null;
 
@@ -440,7 +444,7 @@ $.get('/static/data/{{values["objectname"]}}.xml', function (xml) {
     });
     option = {
         title: {
-            text: '关系图',
+            text: '',
             subtext: 'Default layout',
             top: 'bottom',
             left: 'right'
@@ -482,7 +486,7 @@ $.get('/static/data/{{values["objectname"]}}.xml', function (xml) {
                         labelLine :{show:true}
                     }
                 },
-                edgeSymbol:"arrow",
+                edgeSymbol:['',''],
                 lineStyle:{
                     color:'#000',
                     opacity:1

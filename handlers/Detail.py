@@ -17,6 +17,7 @@ class DetailHandler(BaseHandler):
             if object["objectname"] == data:
                 values["objectname"] = data
                 values["objectlv"] = object["objectlv"]
+                values["objectrelationship"] = object["objectrelationship"]
                 if object["objecttype"] == "PJ":
                     values["objectdescription"] = "项目名称：" + object["objectfields"][0]["projectname"]  + "</br>项目背景：" + object["objectfields"][0]["background"] + "</br>项目目标：" + object["objectfields"][0]["target"]
                 else:
