@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+   <head>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>项目图谱</title>
+
+     <!-- Bootstrap -->
+    <link href='{{static_url("css/bootstrap.min.css")}}' rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+
+    <!-- MetisMenu CSS -->
+    <link href='{{static_url("js/vendor/metisMenu/metisMenu.min.css")}}' rel="stylesheet">
+
+
+
+    <!-- Morris Charts CSS -->
+    <link href='{{static_url("js/vendor/morrisjs/morris.css")}}' rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href='{{static_url("js/vendor/font-awesome/css/font-awesome.min.css")}}' rel="stylesheet" type="text/css">
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+        <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+       <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/simplex.js"></script>
+       <!-- jQuery -->
+        <script src='{{static_url("js/vendor/jquery/jquery.min.js")}}'></script>
+   </head>
+   <body style="height: 100%; margin: 0;background-color:#121e23">
+    <div id="wrapper" style="height: 100%; margin: 0">
+        <div id="page-wrapper" style="height: 100%; margin: 0">
+            <div class="row" style="height: 100%; margin: 0">
+                <div class="col-lg-4" style="height: 100%; margin: 0;">
+                    <div class="row">
+                        <div class="col-lg-12" style="height: 200px">
+                            <div id="barcontainer" style="height: 100%"></div>
+                            <script type="text/javascript">
+                                var dom = document.getElementById("barcontainer");
+                                var myChart = echarts.init(dom);
+                                var app = {};
+                                option = null;
+                                option = {
+                                    tooltip: {
+                                               show: true
+                                            },
+                                    title : {
+                                                text: '历年项目建设数量',
+                                                subtext: '',
+                                                textStyle: {
+                                                     color: '#fff',
+                                                        fontSize: 13
+                                                 }
+                                            },
+                                    xAxis: {
+                                         axisLabel : {
+                                             textStyle: {
+                                                 color: '#fff',
+                                             }
+                                         },
+                                        type: 'category',
+                                        data: ['2011年', '2012年', '2013年', '2014年', '2015年', '2016年', '2017年']
+                                    },
+                                    yAxis: {
+                                        axisLabel : {
+                                             textStyle: {
+                                                 color: '#fff',
+                                             }
+                                         },
+                                        type: 'value'
+                                    },
+                                    series: [{
+                                        itemStyle: {
+                                               normal: {
+                                                   color: '#5acbfc',
+                                                   label: {
+                                                        show: false,
+                                                        //position : 'inside',
+                                                        formatter : '{b}',
+                                                        textStyle: {
+                                                            color: '#000000'
+                                                        }
+                                                    }
+                                               }
+                                           },
+                                        data: [109, 216, 346, 427, 498, 530, 639],
+                                        type: 'bar'
+                                    }]
+                                };
+                                ;
+                                if (option && typeof option === "object") {
+                                    myChart.setOption(option, true);
+                                }
+                            </script>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12" style="height: 250px">
+                            <div id="piecontainer" style="height: 100%"></div>
+                            <script type="text/javascript">
+                                    var dom = document.getElementById("piecontainer");
+                                var myChart = echarts.init(dom);
+                                var app = {};
+                                option = null;
+                                option = {
+                                    backgroundColor: '#121e23',
+
+                                    title: {
+                                        text: '2017年各领域项目建设投资比例',
+                                        left: 'left',
+                                        top: 20,
+                                        textStyle: {
+                                            color: '#fff',
+                                            fontSize: 13
+                                        }
+                                    },
+
+                                    tooltip : {
+                                        trigger: 'item',
+                                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                                    },
+
+                                    visualMap: {
+                                        show: false,
+                                        min: 80,
+                                        max: 600,
+                                        inRange: {
+                                            colorLightness: [0, 1]
+                                        }
+                                    },
+                                    series : [
+                                        {
+                                            name:'投资比例',
+                                            type:'pie',
+                                            radius : '55%',
+                                            center: ['50%', '50%'],
+                                            data:[
+                                                {value:335, name:'教学管理类'},
+                                                {value:310, name:'资产管理类'},
+                                                {value:274, name:'人员管理类'},
+                                                {value:235, name:'信息服务类'},
+                                                {value:400, name:'研究探索类'}
+                                            ].sort(function (a, b) { return a.value - b.value; }),
+                                            roseType: 'radius',
+                                            label: {
+                                                normal: {
+                                                    textStyle: {
+                                                        color: 'rgba(255, 255, 255, 1)'
+                                                    }
+                                                }
+                                            },
+                                            labelLine: {
+                                                normal: {
+                                                    lineStyle: {
+                                                        color: 'rgba(255, 255, 255, 0.5)'
+                                                    },
+                                                    smooth: 0.2,
+                                                    length: 10,
+                                                    length2: 20
+                                                }
+                                            },
+                                            itemStyle: {
+                                                normal: {
+                                                    color: '#5acbfc',
+                                                    shadowBlur: 200,
+                                                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                                }
+                                            },
+
+                                            animationType: 'scale',
+                                            animationEasing: 'elasticOut',
+                                            animationDelay: function (idx) {
+                                                return Math.random() * 200;
+                                            }
+                                        }
+                                    ]
+                                };;
+                                if (option && typeof option === "object") {
+                                    myChart.setOption(option, true);
+                                }
+                                       </script>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12" style="height: 100%; margin: 0">
+                            <div id="barycontainer" style="height: 400px"></div>
+                            <script type="text/javascript">
+                                var dom = document.getElementById("barycontainer");
+                                var myChart = echarts.init(dom);
+
+                                option = null;
+
+
+                                option = {
+                                    title: {
+                                        text: '各区项目建设数量',
+                                        subtext: '',
+                                        textStyle: {
+                                            color: '#fff',
+                                            fontSize: 13
+                                        }
+                                    },
+                                    tooltip: {
+                                        trigger: 'axis',
+                                        axisPointer: {
+                                            type: 'shadow'
+                                        }
+                                    },
+                                    legend: {
+                                        data: ['2016年', '2017年']
+                                    },
+                                    grid: {
+                                        left: '3%',
+                                        right: '4%',
+                                        bottom: '3%',
+                                        containLabel: true
+                                    },
+                                    xAxis: {
+                                        type: 'value',
+                                        boundaryGap: [0, 0.01],
+                                        axisLabel : {
+                                             textStyle: {
+                                                 color: '#fff'
+                                             }
+                                         }
+                                    },
+                                    yAxis: {
+                                        type: 'category',
+                                        data: ['黄浦区','徐汇区','长宁区','静安区','普陀区','虹口区','杨浦区','闵行区','宝山区','嘉定区','浦东新区','金山区','松江区','青浦区','奉贤区','崇明区'],
+                                        axisLabel : {
+                                             textStyle: {
+                                                 color: '#fff'
+                                             }
+                                         }
+                                    },
+                                    series: [
+                                        {
+                                            name: '2011年',
+                                            type: 'bar',
+                                            data: [182, 234, 290, 104, 131, 630,766,435,132,152,696,648,234,867,768,454],
+                                            itemStyle:{
+                                                normal:{
+                                                    color:'#bbe7f9'
+                                                }
+                                            }
+                                        },
+                                        {
+                                            name: '2012年',
+                                            type: 'bar',
+                                            data: [193, 234, 310, 121, 134, 681,978,465,678,354,797,464,867,345,344,877],
+                                            itemStyle:{
+                                                normal:{
+                                                    color:'#038cc4'
+                                                }
+                                            }
+                                        }
+                                    ]
+                                };
+                                ;
+                                if (option && typeof option === "object") {
+                                    myChart.setOption(option, true);
+                                }
+                                       </script>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4" style="height: 100%; margin: 0">
+                    <div class="row">
+                        <div class="col-lg-12" style="height: 100%; margin: 0">
+                            <h2 style="color: #ffffff">上海教育信息化发展评估与共享支持系统</h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4" style="height: 100%; margin: 0">
+                            <h4 style="color: #ffffff">当前正在运行系统</h4>
+                            <blockquote>
+                                <p style="color: #3bf948">1600个</p>
+                            </blockquote>
+                        </div>
+                        <div class="col-lg-4" style="height: 100%; margin: 0">
+                            <h4 style="color: #ffffff">当前正在建设系统</h4>
+                            <blockquote>
+                                <p style="color: #fcd058">400个</p>
+                            </blockquote>
+                        </div>
+                        <div class="col-lg-4" style="height: 100%; margin: 0">
+                            <h4 style="color: #ffffff">当前运行异常系统</h4>
+                            <blockquote>
+                                <p style="color: #f71b1b">3个</p>
+                            </blockquote>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12" style="height: 100%; margin: 0">
+                            <div id="mapcontainer" style="height: 750px;"></div>
+                            <script type="text/javascript">
+                                    var dom = document.getElementById("mapcontainer");
+                                    var myChart = echarts.init(dom);
+                                    var app = {};
+                                    option = null;
+
+
+                                    var provinces = ['shanghai'];
+                                    var provincesText = ['上海教育信息化发展评估与共享支持系统'];
+
+                                    function showProvince() {
+                                        var name = provinces[currentIdx];
+                                        myChart.showLoading();
+                                        $.get('{{static_url("data/shanghai.json")}}', function (geoJson) {
+                                            myChart.hideLoading();
+                                            echarts.registerMap(name, geoJson);
+                                            myChart.setOption(option = {
+                                                backgroundColor: '#121e23',
+                                                title: {
+                                                    //text: provincesText[currentIdx],
+                                                    left: 'center',
+                                                    textStyle: {
+                                                        color: '#fff'
+                                                    }
+                                                },
+                                                series: [
+                                                    {
+                                                        type: 'map',
+                                                        mapType: name,
+                                                        label: {
+                                                            emphasis: {
+                                                                textStyle: {
+                                                                    color: '#000'
+                                                                }
+                                                            }
+                                                        },
+                                                        itemStyle: {
+                                                            normal: {
+                                                                borderColor: '#22baf9',
+                                                                areaColor: '#fff',
+                                                            },
+                                                            emphasis: {
+                                                                areaColor: '#5acbfc',
+                                                                borderWidth: 0
+                                                            }
+                                                        },
+                                                        animation: false
+                                                        // animationDurationUpdate: 1000,
+                                                        // animationEasingUpdate: 'quinticInOut'
+                                                    }
+                                                ]
+                                            });
+                                        });
+                                    }
+                                    var currentIdx = 0;
+                                    option = {
+                                        series: []
+                                    };
+                                    showProvince();
+                                    ;
+                                    if (option && typeof option === "object") {
+                                        myChart.setOption(option, true);
+                                    }
+                           </script>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4" style="height: 100%; margin: 0;">
+                    <div class="row">
+                        <div class="col-lg-12" style="height: 100%; margin: 0;">
+                            <div id="areacontainer" style="height: 300px;"></div>
+                            <script type="text/javascript">
+                                    var areadom = document.getElementById("areacontainer");
+                                    var areamyChart = echarts.init(areadom);
+                                    var app = {};
+                                    option = null;
+                                    var base = +new Date(2017, 3, 9);
+                                    var oneDay = 24 * 3600 * 1000;
+                                    var date = [];
+
+                                    var data = [Math.random() * 30000];
+
+                                    for (var i = 1; i < 400; i++) {
+                                        var now = new Date(base += oneDay);
+                                        date.push([now.getFullYear(), now.getMonth(), now.getDate()].join('/'));
+                                        data.push(Math.round((Math.random() - 0.5) * 100 + data[i - 1]));
+                                    }
+                                    option = {
+                                        tooltip: {
+                                            trigger: 'axis',
+                                            position: function (pt) {
+                                                return [pt[0], '10%'];
+                                            }
+                                        },
+                                        title: {
+                                            left: 'left',
+                                            text: '实时用户访问量',
+                                            textStyle: {
+                                                color: '#fff',
+                                                fontSize: 13
+                                            }
+                                        },
+                                        toolbox: {
+                                            feature: {
+                                                dataZoom: {
+                                                    yAxisIndex: 'none'
+                                                },
+                                                restore: {},
+                                                saveAsImage: {}
+                                            }
+                                        },
+                                        xAxis: {
+                                            type: 'category',
+                                            boundaryGap: false,
+                                            data: date,
+                                            axisLabel : {
+                                             textStyle: {
+                                                 color: '#fff'
+                                             }
+                                         }
+                                        },
+                                        yAxis: {
+                                            type: 'value',
+                                            boundaryGap: [0, '100%'],
+                                            axisLabel : {
+                                             textStyle: {
+                                                 color: '#fff'
+                                             }
+                                         }
+                                        },
+                                        dataZoom: [{
+                                            type: 'inside',
+                                            start: 0,
+                                            end: 10
+
+                                        }, {
+                                            start: 0,
+                                            end: 10,
+                                            handleIcon: 'M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4v1.3h1.3v-1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z',
+                                            handleSize: '80%',
+                                            handleStyle: {
+                                                color: '#fff',
+                                                shadowBlur: 3,
+                                                shadowColor: 'rgba(0, 0, 0, 1)',
+                                                shadowOffsetX: 2,
+                                                shadowOffsetY: 2
+                                            },
+                                            textStyle:{
+                                                color:'#fff'
+                                            }
+                                        }],
+                                        series: [
+                                            {
+                                                name:'模拟数据',
+                                                type:'line',
+                                                smooth:true,
+                                                symbol: 'none',
+                                                sampling: 'average',
+                                                itemStyle: {
+                                                    normal: {
+                                                        color: 'rgb(19, 125, 239)'
+                                                    }
+                                                },
+                                                areaStyle: {
+                                                    normal: {
+                                                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                                            offset: 0,
+                                                            color: 'rgb(107, 173, 244)'
+                                                        }, {
+                                                            offset: 1,
+                                                            color: 'rgb(52, 141, 237)'
+                                                        }])
+                                                    }
+                                                },
+                                                data: data
+                                            }
+                                        ]
+                                    };
+                                    ;
+                                    if (option && typeof option === "object") {
+                                        areamyChart.setOption(option, true);
+                                    }
+                                           </script>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="row">
+                            <div class="col-lg-6" style="height: 100%; margin: 0;">
+                                <div id="g1container" style="height: 300px;"></div>
+                                <script type="text/javascript">
+                                    var g1dom = document.getElementById("g1container");
+                                    var g1myChart = echarts.init(g1dom);
+                                    var app = {};
+                                    g1option = null;
+                                    g1option = {
+                                        tooltip : {
+                                            formatter: "{a} <br/>{b} : {c}%"
+
+                                        },
+                                        toolbox: {
+                                            feature: {
+                                                restore: {},
+                                                saveAsImage: {}
+                                            }
+                                        },
+                                        series: [
+                                            {
+                                                name: '业务指标',
+                                                type: 'gauge',
+                                                title:{
+                                                    textStyle:{
+                                                        fontSize:15,
+                                                        color:'#fff'
+                                                    }
+                                                },
+                                                detail: {
+                                                    formatter:'{value}%',
+                                                    textStyle:{
+                                                        fontSize:15,
+                                                        color:'#fff'
+                                                    }
+                                                },
+                                                data: [{value: 50, name: '数据库压力'}],
+
+                                            }
+                                        ]
+                                    };
+
+                                    setInterval(function () {
+                                        g1option.series[0].data[0].value = (Math.random() * 100).toFixed(2) - 0;
+                                        g1myChart.setOption(g1option, true);
+                                    },2000);
+                                    ;
+                                    if (g1option && typeof g1option === "object") {
+                                        g1myChart.setOption(g1option, true);
+                                    }
+                                           </script>
+                            </div>
+                            <div class="col-lg-6" style="height: 100%; margin: 0;">
+                                <div id="g2container" style="height: 300px;"></div>
+                                <script type="text/javascript">
+                                    var g2dom = document.getElementById("g2container");
+                                    var g2myChart = echarts.init(g2dom);
+                                    var app = {};
+                                    g2option = null;
+                                    g2option = {
+                                        tooltip : {
+                                            formatter: "{a} <br/>{b} : {c}%"
+                                        },
+                                        toolbox: {
+                                            feature: {
+                                                restore: {},
+                                                saveAsImage: {}
+                                            }
+                                        },
+                                        series: [
+                                            {
+                                                name: '业务指标',
+                                                type: 'gauge',
+                                                title:{
+                                                    textStyle:{
+                                                        fontSize:15,
+                                                        color:'#fff'
+                                                    }
+                                                },
+                                                detail: {
+                                                    formatter:'{value}%',
+                                                    textStyle:{
+                                                        fontSize:15,
+                                                        color:'#fff'
+                                                    }
+                                                },
+                                                data: [{value: 50, name: '用户访问量'}]
+                                            }
+                                        ]
+                                    };
+
+                                    setInterval(function () {
+                                        g2option.series[0].data[0].value = (Math.random() * 100).toFixed(2) - 0;
+                                        g2myChart.setOption(g2option, true);
+                                    },2000);
+                                    ;
+                                    if (g2option && typeof g2option === "object") {
+                                        g2myChart.setOption(g2option, true);
+                                    }
+                                           </script>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6" style="height: 100%; margin: 0;">
+                                <div id="g3container" style="height: 300px;"></div>
+                                <script type="text/javascript">
+                                    var g3dom = document.getElementById("g3container");
+                                    var g3myChart = echarts.init(g3dom);
+                                    var app = {};
+                                    g3option = null;
+                                    g3option = {
+                                        tooltip : {
+                                            formatter: "{a} <br/>{b} : {c}%"
+                                        },
+                                        toolbox: {
+                                            feature: {
+                                                restore: {},
+                                                saveAsImage: {}
+                                            }
+                                        },
+                                        series: [
+                                            {
+                                                name: '业务指标',
+                                                type: 'gauge',
+                                                title:{
+                                                    textStyle:{
+                                                        fontSize:15,
+                                                        color:'#fff'
+                                                    }
+                                                },
+                                                detail: {
+                                                    formatter:'{value}%',
+                                                    textStyle:{
+                                                        fontSize:15,
+                                                        color:'#fff'
+                                                    }
+                                                },
+
+                                                data: [{value: 50, name: '系统承载业务量'}]
+                                            }
+                                        ]
+                                    };
+
+                                    setInterval(function () {
+                                        g3option.series[0].data[0].value = (Math.random() * 100).toFixed(2) - 0;
+                                        g3myChart.setOption(g3option, true);
+                                    },2000);
+                                    ;
+                                    if (g3option && typeof g3option === "object") {
+                                        g3myChart.setOption(g3option, true);
+                                    }
+                                           </script>
+                            </div>
+                            <div class="col-lg-6" style="height: 100%; margin: 0;">
+                                <div id="g4container" style="height: 300px;"></div>
+                                <script type="text/javascript">
+                                    var g4dom = document.getElementById("g4container");
+                                    var g4myChart = echarts.init(g4dom);
+                                    var app = {};
+                                    g4option = null;
+                                    g4option = {
+                                        tooltip : {
+                                            formatter: "{a} <br/>{b} : {c}%"
+                                        },
+                                        toolbox: {
+                                            feature: {
+                                                restore: {},
+                                                saveAsImage: {}
+                                            }
+                                        },
+                                        series: [
+                                            {
+                                                name: '业务指标',
+                                                type: 'gauge',
+                                                title:{
+                                                    textStyle:{
+                                                        fontSize:15,
+                                                        color:'#fff'
+                                                    }
+                                                },
+                                                detail: {
+                                                    formatter:'{value}%',
+                                                    textStyle:{
+                                                        fontSize:15,
+                                                        color:'#fff'
+                                                    }
+                                                },
+
+                                                data: [{value: 50, name: '网络带宽使用率'}]
+                                            }
+                                        ]
+                                    };
+
+                                    setInterval(function () {
+                                        g4option.series[0].data[0].value = (Math.random() * 100).toFixed(2) - 0;
+                                        g4myChart.setOption(g4option, true);
+                                    },2000);
+                                    ;
+                                    if (g4option && typeof g4option === "object") {
+                                        g4myChart.setOption(g4option, true);
+                                    }
+                                           </script>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+   </body>
+</html>

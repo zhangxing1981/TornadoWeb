@@ -4,13 +4,15 @@ from handlers.Upload import UploadHandler
 from handlers.Browse import BrowseHandler
 from handlers.Detail import DetailHandler
 from handlers.Audit import AuditHandler
+from handlers.Main import MainHandler
 
 url_patterns = [
     (r"/base", FooHandler),
-    (r"/", DashboardHandler),
+    (r"/", MainHandler),
     (r"/upload", UploadHandler),
     (r"/browse", BrowseHandler),
     (r"/detail/([^/]+)", DetailHandler),
-    (r"/audit/([^/]+)", AuditHandler)
+    (r"/audit/([^/]+)", AuditHandler),
+
 ]
 
