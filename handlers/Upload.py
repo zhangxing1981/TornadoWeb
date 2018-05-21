@@ -10,6 +10,8 @@ from aip import AipNlp
 
 
 from handlers.base import BaseHandler
+from elasticsearch import Elasticsearch
+from datetime import datetime
 
 class UploadHandler(BaseHandler):
 
@@ -70,6 +72,7 @@ class UploadHandler(BaseHandler):
         wordsdata = json.loads(json.dumps(wordsvalue,encoding="utf-8",ensure_ascii=False))
         words= ''
         wordcount = {}
+        wordsplite = ''
         for item in wordsdata["items"]:
             if(item["pos"] != ''):
                 pos[item["pos"]] += 1
@@ -78,6 +81,7 @@ class UploadHandler(BaseHandler):
                         wordcount[item["item"]] +=1
                     else:
                         wordcount[item["item"]] =1
+            wordsplite += item["item"] + ','
 
         for index,item in list(enumerate(pos)):
             words += item + ":" + str(pos[item]) + "</br>"
@@ -96,8 +100,20 @@ class UploadHandler(BaseHandler):
 
 
         #values["tag"] = json.dumps(returnvalue,encoding="utf-8",ensure_ascii=False)
-        values["words"] = words
+        values["words"] = wordsplite
         values["keys"] = keys
+
+
+
+        #insert data into elasticsearch
+        es = Elasticsearch([
+            {'host':'106.75.218.230','port':9200}
+        ])
+        es.indices.create(index='fileindex', ignore = 400)
+        {u'acknowledged': True}
+        es.index(
+            index="fileindex", doc_type ="word", id = 42, body = {"filecontent": filecontent, "timestamp": datetime.now()})
+        {u'_id': u'42', u'_index': u'fileindex', u'_type': u'word', u'_version': 1, u'ok': True}
 
 
         self.render("result.html",values = values)
