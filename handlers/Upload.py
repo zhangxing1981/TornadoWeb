@@ -10,7 +10,7 @@ from aip import AipNlp
 
 
 from handlers.base import BaseHandler
-#from elasticsearch import Elasticsearch
+from elasticsearch import Elasticsearch
 from datetime import datetime
 
 class UploadHandler(BaseHandler):
@@ -106,14 +106,14 @@ class UploadHandler(BaseHandler):
 
 
         #insert data into elasticsearch
-        #es = Elasticsearch([
-         #   {'host':'106.75.218.230','port':9200}
-        #])
-        #es.indices.create(index='fileindex', ignore = 400)
-        #{u'acknowledged': True}
-        #es.index(
-        #    index="fileindex", doc_type ="word", id = 42, body = {"filecontent": filecontent, "timestamp": datetime.now()})
-        #{u'_id': u'42', u'_index': u'fileindex', u'_type': u'word', u'_version': 1, u'ok': True}
+        es = Elasticsearch([
+           {'host':'106.75.218.230','port':9200}
+        ])
+        es.indices.create(index='fileindex', ignore = 400)
+        {u'acknowledged': True}
+        es.index(
+            index="fileindex", doc_type ="word", id = 42, body = {"filecontent": filecontent, "timestamp": datetime.now()})
+        {u'_id': u'42', u'_index': u'fileindex', u'_type': u'word', u'_version': 1, u'ok': True}
 
 
         self.render("result.html",values = values)
